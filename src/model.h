@@ -13,11 +13,11 @@
 #define WRAPPEDFIRMWARENAME WRAP(FIRMWARENAME)
 #define WRAPPEDFIRMWAREDIR WRAP(FIRMWAREDIR)
 
-avr_t * avr;
+extern avr_t * avr;
 
-char *(*CHIPNAME)();
-int PINS;
-char *(*REGISTERS)();
+extern char *(*CHIPNAME)();
+extern int PINS;
+extern char *(*REGISTERS)();
 
 int reg_pin_to_location ( char, int );
 void set_ddr( int , int );

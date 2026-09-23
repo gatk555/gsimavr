@@ -3,6 +3,8 @@
 
 #include "logger.h"
 
+int app_verbosity;
+
 void std_logger( const char * format, va_list ap);
 logger_p _logger_routine = std_logger;
 
@@ -45,7 +47,8 @@ void std_logger( const char * format, va_list ap ) {
 	vprintf( format, ap);
 }
 
-void gsimavr_avr_logger( const int level, const char * format, va_list ap ) {
+void gsimavr_avr_logger( struct avr_t* avr, const int level,
+                         const char * format, va_list ap ) {
         if ( app_verbosity >= level ) {
                 int len = snprintf(NULL, 0, "AVRLOG: %s", format );
                 char *st = (char *)malloc(len+1);

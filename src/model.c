@@ -10,7 +10,12 @@
 #include "sim_elf.h"
 #include "sim_gdb.h"
 
+avr_t * avr;
 void *lib;
+char *(*CHIPNAME)();
+int PINS;
+char *(*REGISTERS)();
+
 typedef void (*ConfigureDevice)(void);
 typedef int(*Core_reg_pin_to_location)(char, int);
 
@@ -100,7 +105,7 @@ void createAvr( char *firmwareDir, char *firmwareName, char *firmwareMcu ) {
   char *st = (char *)malloc(len+1);
   snprintf(st, len+1, "%s/%s.elf", firmwareDir, firmwareName );
   LOG( LOGGER_WARNING, "Loading firmware: %s\n", st);
-  elf_firmware_t f;
+  elf_firmware_t f = {};
   elf_read_firmware ( st, &f );
   free(st);
 

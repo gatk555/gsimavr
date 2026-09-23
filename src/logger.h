@@ -3,6 +3,7 @@
 #define ___LOGGER_H___
 
 #include <stdarg.h>
+#include <sim_avr.h>
 
 enum {
         LOGGER_NONE = 0,//
@@ -24,8 +25,8 @@ void set_logger( logger_p );
 
 void logger_routine( const char * func, char * file, int line, int level, const char *, ... );
 
-void gsimavr_avr_logger( const int, const char *, va_list );
+void gsimavr_avr_logger( struct avr_t* avr, const int, const char *, va_list );
 
-int app_verbosity;
+extern int app_verbosity;
 
 #endif
