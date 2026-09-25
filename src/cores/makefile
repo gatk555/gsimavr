@@ -8,7 +8,7 @@ CC=gcc
 LIBS=-lc
 CLIBSBUILD?=
 CFLAGSBUILD?=-O2
-CFLAGS=-fPIC -c -Wall -I. -I/usr/local/include/simavr/ -g
+CFLAGS=-fPIC -c -Wall -I. -I../../../../up_simavr/simavr/sim -g
 CFLAGS+=${CFLAGSBUILD}
 OBJ=$(PRJSRC:.c=.o)
 SO=$(PRJSRC:.c=.so)

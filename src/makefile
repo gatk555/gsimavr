@@ -4,14 +4,17 @@ PRJSRC=$(wildcard *.c)
 LIBS=-lm -lGL -lGLU -lglut -lelf -lsimavr -lpthread -ldl
 
 #######################################
-FIRMWAREDIR?=$(shell /usr/bin/realpath -s ${CURDIR}/.. )
-FIRMWARENAME:=$(shell grep -i '^PROJECTNAME=' ${FIRMWAREDIR}/makefile | sed -e 's/PROJECTNAME=//')
-FIRMWAREMCU:=$(shell grep -i '^MCU=' ${FIRMWAREDIR}/makefile | sed -e 's/MCU=//')
+#FIRMWAREDIR?=$(shell /usr/bin/realpath -s ${CURDIR}/.. )
+#FIRMWARENAME:=$(shell grep -i '^PROJECTNAME=' ${FIRMWAREDIR}/makefile | sed -e 's/PROJECTNAME=//')
+#FIRMWAREMCU:=$(shell grep -i '^MCU=' ${FIRMWAREDIR}/makefile | sed -e 's/MCU=//')
+FIRMWAREDIR?=../example
+FIRMWARENAME:=simpleCounter
+FIRMWAREMCU:=atmega328p
 
 CC=gcc
-CLIBSBUILD?= 
+CLIBSBUILD?= -L../../../up_simavr/simavr/obj-x86_64-linux-gnu
 CFLAGSBUILD?=-O2 
-CFLAGS=-c -Wall -Wunreachable-code -I. -I/usr/local/include/simavr/ -g
+CFLAGS=-c -Wall -Wunreachable-code -I. -I../../../up_simavr/simavr/sim -g
 CFLAGS+=${CFLAGSBUILD}
 CFLAGS+=-DFIRMWARENAME=${FIRMWARENAME}
 CFLAGS+=-DFIRMWAREMCU="${FIRMWAREMCU}"
@@ -38,7 +41,7 @@ endif
 	$(CC) -MM $(CFLAGS) $*.c > $*.d
 
 ${PROJECTNAME}: core ${OBJ}
-	$(CC) -o $@ ${OBJ} ${LIBS} ${CLIBSBUILD}
+	$(CC) -o $@ ${OBJ} ${CLIBSBUILD} ${LIBS}
 
 core:
 	export CFLAGSBUILD='${CFLAGSBUILD}'
